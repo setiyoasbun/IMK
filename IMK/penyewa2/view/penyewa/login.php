@@ -20,6 +20,9 @@
 			if($row['status_user'] == 'Akademisi'){
 				header('location:../../../pengelola/index.php');
 			}
+			else{
+				header('location:../../../user/index.php');
+			}
 		}
 		else{
 			echo "<script>alert('Maaf, Username atau Password anda salah')</script>";
@@ -117,7 +120,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block" name="login">Masuk</button>
       </form>
-      <!--<p>Masih belum memiliki akun? Silakan untuk <a href="register.html">Daftar</a></p>-->
+		<p>Masih belum memiliki akun? Silakan untuk <a href="../../../penyewa3/before_registration.html">Daftar</a></p>
 
       <!--
 	  <div class="alert alert-danger alert-dismissible" role="alert">
@@ -128,7 +131,7 @@
 
       <footer class="page-copyright">
         <p>WEBSITE BY OneGate ITS</p>
-        <p>© 2015. <a href="../../../user/index.php">OneGate ITS</a>.</p>
+        <p>© 2015. <a>OneGate ITS</a>.</p>
         <!--<div class="social">
           <a href="javascript:void(0)">
             <i class="icon bd-twitter" aria-hidden="true"></i>
