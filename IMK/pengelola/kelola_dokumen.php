@@ -142,7 +142,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Forum</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-edit"></i> <span>Forum</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
