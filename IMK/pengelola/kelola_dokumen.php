@@ -4,8 +4,9 @@
 	if(!(isset($_SESSION['id']))){
 		header("location: ../penyewa2/view/penyewa/login.php");
 	}
+	$ids = $_SESSION['id'];
 	if(isset($_FILES['upload'])){
-	  $ids = $_SESSION['id'];
+	  
       $errors= array();
       $file_name = $_FILES['upload']['name'];
       $file_size =$_FILES['upload']['size'];
@@ -33,7 +34,12 @@
          echo "<script>alert('File bukan berupa doc, docx, atau pdf.')</script>";
       }
 	}
-	
+	$na = "SELECT nama_user from user where id_user = '$ids'";
+	$ma = mysqli_query($conn, $na);
+	$nama = mysqli_fetch_assoc($ma);
+	$hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
+	$tung = mysqli_query($conn, $hi);
+	$hitung = mysqli_fetch_array($tung);
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,9 +52,9 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="../https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
@@ -91,14 +97,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Nama UPT</span>
+                  <span class="hidden-xs"><?php echo $nama['nama_user']; ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
-                      Nama UPT
+                     <?php echo $nama['nama_user']; ?>
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -124,7 +130,7 @@
               <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Nama UPT</p>
+              <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -137,7 +143,7 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right">4</span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
               </a>
             </li>
             <li class="treeview">
@@ -153,11 +159,6 @@
             <li class="active">
               <a href="kelola_dokumen.php">
                 <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
-              </a>
-            </li>
-            <li>
-              <a href="kelola_informasi.php">
-                <i class="fa fa-laptop"></i> <span>Kelola Informasi</span>
               </a>
             </li>
           </ul>
@@ -195,13 +196,14 @@
                         <th>Opsi</th>
                       </tr>
                     </thead>
-                    <tr>
-						<?php
+					<?php
 							$res2 = "SELECT * from dokumen";
 							$sult2 = mysqli_query($conn, $res2);
 							foreach($sult2 as $dok){
 							
 						?>
+                    <tr>
+						
                         <td><?php echo $dok['isi_dokumen']; ?></td>
 						<?php
 							$idp = $dok['id_user'];
@@ -228,14 +230,15 @@
                               </div>
                               <div class="modal-footer">
 								<?php echo "<a href=delete_dokumen.php?id_dokumen=$ido class='btn btn-default'>Yes</a>"; ?>
-							<?php } ?>
+							
                                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                               </div>
                             </div>
-                            
+                            </div>
                           </div>
                         </td>
                     </tr>
+					<?php } ?>
                     <tfoot>
                       <tr>
                         <th>Dokumen</th>

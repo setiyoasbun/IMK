@@ -28,6 +28,9 @@
 	$na = "SELECT nama_user from user where id_user = '$id'";
 	$ma = mysqli_query($conn, $na);
 	$nama = mysqli_fetch_assoc($ma);
+	$hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
+	$tung = mysqli_query($conn, $hi);
+	$hitung = mysqli_fetch_array($tung);
 ?>
 <!DOCTYPE html>
 <html>
@@ -131,7 +134,7 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right">4</span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
               </a>
             </li>
             <li class="treeview">
@@ -159,7 +162,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1 style="text-align: center">
-            <a href="forum.php" class="btn btn-primary pull-left"><b>Back To Forum</b></a>
+            <a href="javascript:history.back()" class="btn btn-primary pull-left"><b>Back To Forum</b></a>
             Thread
           </h1>
         </section>
