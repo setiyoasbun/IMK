@@ -9,7 +9,7 @@
 		$id = $_SESSION['id'];
 		$isi = $_POST['submit'];
 		
-		$tipe = "Fasor";
+		//$tipe = "Fasor";
 		$res = "INSERT INTO comment (id_user, id_thread, isi_comment) values ('$id', '$idt', '$isi')";
 		//$sult = mysqli_query($conn, $res);
 		if(mysqli_query($conn, $res)){
