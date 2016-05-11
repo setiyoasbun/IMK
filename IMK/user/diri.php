@@ -90,6 +90,9 @@
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
+                  <div class="pull-left">
+                      <a href="diri.php" class="btn btn-default btn-flat">Edit Profile</a>
+                    </div>
                     <div class="pull-right">
                       <a href="signout.php" class="btn btn-default btn-flat">Sign out</a>
                     </div>
@@ -152,6 +155,9 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+          <a href="javascript:history.back()" class="btn btn-primary"><b>Back</b></a>
+        </section>
+        <section class="content">
           <div class="row">
             <div class="col-md-13">
               <!-- Profile Image -->
