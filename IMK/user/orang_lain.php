@@ -144,6 +144,12 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+          <h1>
+          <a href="keluhan.php" class="btn btn-primary pull-left"><b>Back</b></a>
+          </h1>
+        </section>
+        
+        <section class="content">
           <div class="row">
             <div class="col-md-13">
               <!-- Profile Image -->
@@ -160,13 +166,13 @@
                     <li class="list-group-item">
                       <b>Email</b> <a class="pull-right"><?php echo $nama1['email_user']; ?></a>
                     </li>
-          <li class="list-group-item">
+                    <li class="list-group-item">
                       <b>Asal</b> <a class="pull-right"><?php echo $nama1['asal_user']; ?></a>
                     </li>           
                     <li class="list-group-item">
                       <b>Status</b> <a class="pull-right"><?php echo $nama1['status_user']; ?></a>
                     </li>
-          <li class="list-group-item">
+                    <li class="list-group-item">
                       <b>Nomor Identitas</b> <a class="pull-right"><?php echo $nama1['nomor_id']; ?></a>
                     </li>       
                   </ul>
