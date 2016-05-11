@@ -1,33 +1,33 @@
 <?php
-	session_start();
-	include_once("../conn.php");
-	if(!(isset($_SESSION['id']))){
-		header("location: ../penyewa2/view/penyewa/login.php");
-	}
-	$tipe = "UPT";
-	$id = $_SESSION['id'];
-	if(isset($_POST['submit'])){
-		
-		$judul = $_POST['title'];
-		$isi = $_POST['ask'];
-		
-		$res = "INSERT INTO thread (id_user, judul_thread, isi_thread, tipe_thread) values ('$id', '$judul', '$isi', '$tipe')";
-		//$sult = mysqli_query($conn, $res);
-		if(mysqli_query($conn, $res)){
-			echo "<script>alert('Berhasil memasukkan thread')</script>";
-		}
-		else{
-			echo "<script>alert('Gagal memasukkan thread')</script>";
-		}
-	}
-	$res2 = "SELECT * FROM thread where tipe_thread='$tipe' order by id_thread DESC";
-	$sult2 = mysqli_query($conn, $res2);
-	$na = "SELECT nama_user from user where id_user = '$id'";
-	$ma = mysqli_query($conn, $na);
-	$nama = mysqli_fetch_assoc($ma);
-	$hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
-	$tung = mysqli_query($conn, $hi);
-	$hitung = mysqli_fetch_array($tung);
+  session_start();
+  include_once("../conn.php");
+  if(!(isset($_SESSION['id']))){
+    header("location: ../penyewa2/view/penyewa/login.php");
+  }
+  $tipe = "Fasor";
+  $id = $_SESSION['id'];
+  if(isset($_POST['submit'])){
+    
+    $judul = $_POST['title'];
+    $isi = $_POST['ask'];
+    
+    $res = "INSERT INTO thread (id_user, judul_thread, isi_thread, tipe_thread) values ('$id', '$judul', '$isi', '$tipe')";
+    //$sult = mysqli_query($conn, $res);
+    if(mysqli_query($conn, $res)){
+      echo "<script>alert('Berhasil memasukkan thread')</script>";
+    }
+    else{
+      echo "<script>alert('Gagal memasukkan thread')</script>";
+    }
+  }
+  $res2 = "SELECT * FROM thread where tipe_thread='$tipe' order by id_thread DESC";
+  $sult2 = mysqli_query($conn, $res2);
+  $na = "SELECT nama_user from user where id_user = '$id'";
+  $ma = mysqli_query($conn, $na);
+  $nama = mysqli_fetch_assoc($ma);
+  $hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
+  $tung = mysqli_query($conn, $hi);
+  $hitung = mysqli_fetch_array($tung);
 ?>
 <!DOCTYPE html>
 <html>
@@ -121,6 +121,7 @@
               <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
+          <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
@@ -131,7 +132,7 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span>
               </a>
             </li>
             <li class="active treeview">
@@ -139,14 +140,14 @@
                 <i class="fa fa-edit"></i> <span>Forum</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
-                <li><a href="forum_fasor.php"><i class="fa fa-circle-o"></i> UPT Fasor</a></li>
+                <li><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
+                <li class="active"><a href="forum_fasor.php"><i class="fa fa-circle-o"></i> UPT Fasor</a></li>
                 <li><a href="forum_upmb.php"><i class="fa fa-circle-o"></i> UPMB </a></li>
               </ul>
             </li>
             <li>
-              <a href="kelola_dokumen.php">
-                <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
+              <a href="unduh_dokumen.php">
+                <i class="fa fa-book"></i> <span>Unduh Dokumen</span>
               </a>
             </li>
           </ul>
@@ -159,7 +160,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1 style="text-align: center">
-            Forum UPT Bahasa
+            Forum UPT Fasor
           </h1>
         </section>
         <section class="content">
@@ -170,17 +171,17 @@
                   <h3 class="box-title">Forum</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-				<form method="POST" action="">
-					<div class="form-group">
-						  <label>Judul Thread</label>
-						  <input type="text" class="form-control" placeholder="Judul Thread..." name="title">
-					</div>
-					<div class="form-group">
-						  <label>Isi Thread</label>
-						  <textarea class="form-control" rows="3" placeholder="Ketik disini..." name="ask"></textarea>
-					</div>
-					<button class="btn btn-primary btn-block" type="submit" name="submit"><b>Post</b></button>
-				</form>
+        <form method="POST" action="">
+          <div class="form-group">
+              <label>Judul Thread</label>
+              <input type="text" class="form-control" placeholder="Judul Thread..." name="title">
+          </div>
+          <div class="form-group">
+              <label>Isi Thread</label>
+              <textarea class="form-control" rows="3" placeholder="Ketik disini..." name="ask"></textarea>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" name="submit"><b>Post</b></button>
+        </form>
                 <br></br>  
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
@@ -191,27 +192,27 @@
                         <th>Komentar</th>
                       </tr>
                     </thead>
-					<?php
-						foreach($sult2 as $thread){
-							echo"<tr>";
-							echo"<td><a href=thread.php?id_forum=".$thread['id_thread'].">".$thread['judul_thread']."</a></td>";
-							$ids = $thread['id_user'];
-							$res3 = "SELECT nama_user FROM user where id_user = '$ids'";
-							$sult3 = mysqli_query($conn, $res3);
-							$go = mysqli_fetch_assoc($sult3);
-							echo"<td><a href=profile.php?id_user=$ids>".$go['nama_user']."</a></td>";
-							echo "<td>";
-							echo $thread['tgl_thread'];
-							echo "</td>";
-							$idx = $thread['id_thread'];
-							$res4 = "SELECT COUNT(*) from comment where id_thread = '$idx'";
-							$sult4 = mysqli_query($conn, $res4);
-							$go2 = mysqli_fetch_array($sult4);
-							echo "<td>";
-							echo $go2[0];
-							echo "</td>";
-						}
-					?>
+          <?php
+            foreach($sult2 as $thread){
+              echo"<tr>";
+              echo"<td><a href=thread.php?id_forum=".$thread['id_thread'].">".$thread['judul_thread']."</a></td>";
+              $ids = $thread['id_user'];
+              $res3 = "SELECT nama_user FROM user where id_user = '$ids'";
+              $sult3 = mysqli_query($conn, $res3);
+              $go = mysqli_fetch_assoc($sult3);
+              echo"<td><a href=profile.php?id_user=$ids>".$go['nama_user']."</a></td>";
+              echo "<td>";
+              echo $thread['tgl_thread'];
+              echo "</td>";
+              $idx = $thread['id_thread'];
+              $res4 = "SELECT COUNT(*) from comment where id_thread = '$idx'";
+              $sult4 = mysqli_query($conn, $res4);
+              $go2 = mysqli_fetch_array($sult4);
+              echo "<td>";
+              echo $go2[0];
+              echo "</td>";
+            }
+          ?>
                     
                     <tfoot>
                       <tr>

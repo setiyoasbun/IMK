@@ -160,7 +160,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1 style="text-align: center">
-            Forum
+            Forum UPMB
           </h1>
         </section>
         <section class="content">

@@ -4,25 +4,37 @@
 	if(!(isset($_SESSION['id']))){
 		header("location: ../penyewa2/view/penyewa/login.php");
 	}
-	$tipe = "UPT";
-	$id = $_SESSION['id'];
-	if(isset($_POST['submit'])){
-		
-		$judul = $_POST['title'];
-		$isi = $_POST['ask'];
-		
-		$res = "INSERT INTO thread (id_user, judul_thread, isi_thread, tipe_thread) values ('$id', '$judul', '$isi', '$tipe')";
-		//$sult = mysqli_query($conn, $res);
-		if(mysqli_query($conn, $res)){
-			echo "<script>alert('Berhasil memasukkan thread')</script>";
-		}
-		else{
-			echo "<script>alert('Gagal memasukkan thread')</script>";
-		}
+	$ids = $_SESSION['id'];
+	if(isset($_FILES['upload'])){
+	  
+      $errors= array();
+      $file_name = $_FILES['upload']['name'];
+      $file_size =$_FILES['upload']['size'];
+      $file_tmp =$_FILES['upload']['tmp_name'];
+      $file_type=$_FILES['upload']['type'];
+      $file_ext=strtolower(end(explode('.',$_FILES['upload']['name'])));
+      
+      $expensions= array("doc","docx","pdf");
+      
+      if(in_array($file_ext,$expensions)=== false){
+         $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+      }
+      
+      if(empty($errors)==true){
+         move_uploaded_file($file_tmp,"../file/".$file_name);
+		 $link = "../file/".$file_name;
+         //echo "<script>alert('Sukses mengupload file')</script>";
+		 $res = "INSERT into dokumen (id_user, isi_dokumen) values ('$ids','$link')";
+		 if(mysqli_query($conn, $res)){
+			 echo "<script>alert('Sukses mengupload file')</script>";
+		 }
+		 else echo "<script>alert('Gagal mengupload file')</script>";
+		 
+      }else{
+         echo "<script>alert('File bukan berupa doc, docx, atau pdf.')</script>";
+      }
 	}
-	$res2 = "SELECT * FROM thread where tipe_thread='$tipe' order by id_thread DESC";
-	$sult2 = mysqli_query($conn, $res2);
-	$na = "SELECT nama_user from user where id_user = '$id'";
+	$na = "SELECT nama_user from user where id_user = '$ids'";
 	$ma = mysqli_query($conn, $na);
 	$nama = mysqli_fetch_assoc($ma);
 	$hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
@@ -92,7 +104,7 @@
                   <li class="user-header">
                     <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
-                      <?php echo $nama['nama_user']; ?>
+                     <?php echo $nama['nama_user']; ?>
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -131,20 +143,20 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span>
               </a>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i> <span>Forum</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
+                <li><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
                 <li><a href="forum_fasor.php"><i class="fa fa-circle-o"></i> UPT Fasor</a></li>
                 <li><a href="forum_upmb.php"><i class="fa fa-circle-o"></i> UPMB </a></li>
               </ul>
             </li>
-            <li>
+            <li class="active">
               <a href="kelola_dokumen.php">
                 <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
               </a>
@@ -159,7 +171,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1 style="text-align: center">
-            Forum UPT Bahasa
+            Kelola Dokumen
           </h1>
         </section>
         <section class="content">
@@ -167,58 +179,46 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Forum</h3>
+                  <h3 class="box-title">Daftar Keluhan</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-				<form method="POST" action="">
-					<div class="form-group">
-						  <label>Judul Thread</label>
-						  <input type="text" class="form-control" placeholder="Judul Thread..." name="title">
-					</div>
-					<div class="form-group">
-						  <label>Isi Thread</label>
-						  <textarea class="form-control" rows="3" placeholder="Ketik disini..." name="ask"></textarea>
-					</div>
-					<button class="btn btn-primary btn-block" type="submit" name="submit"><b>Post</b></button>
-				</form>
-                <br></br>  
-                  <table id="example1" class="table table-bordered table-hover">
+                  <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Judul</th>
-                        <th>Nama Pembuat</th>
-                        <th>Tanggal Post</th>
-                        <th>Komentar</th>
+                        <th>Dokumen</th>
+                        <th>Pengupload</th>
+                        <th>Tanggal Diunggah</th>
+                        <th>Opsi</th>
                       </tr>
                     </thead>
 					<?php
-						foreach($sult2 as $thread){
-							echo"<tr>";
-							echo"<td><a href=thread.php?id_forum=".$thread['id_thread'].">".$thread['judul_thread']."</a></td>";
-							$ids = $thread['id_user'];
-							$res3 = "SELECT nama_user FROM user where id_user = '$ids'";
+							$res2 = "SELECT * from dokumen";
+							$sult2 = mysqli_query($conn, $res2);
+							foreach($sult2 as $dok){
+							
+						?>
+                    <tr>
+						
+                        <td><?php echo $dok['isi_dokumen']; ?></td>
+						<?php
+							$idp = $dok['id_user'];
+							$res3 = "SELECT nama_user from user where id_user = '$idp'";
 							$sult3 = mysqli_query($conn, $res3);
-							$go = mysqli_fetch_assoc($sult3);
-							echo"<td><a href=profile.php?id_user=$ids>".$go['nama_user']."</a></td>";
-							echo "<td>";
-							echo $thread['tgl_thread'];
-							echo "</td>";
-							$idx = $thread['id_thread'];
-							$res4 = "SELECT COUNT(*) from comment where id_thread = '$idx'";
-							$sult4 = mysqli_query($conn, $res4);
-							$go2 = mysqli_fetch_array($sult4);
-							echo "<td>";
-							echo $go2[0];
-							echo "</td>";
-						}
-					?>
-                    
+							$go3 = mysqli_fetch_assoc($sult3);
+							$ido = $dok['id_dokumen'];
+						?>
+                        <td><?php echo"<a href=profile.php?id_user=$idp>".$go3['nama_user']."</a>"; ?></td>
+							<td><?php echo $dok['tgl_dokumen']; ?></td>
+                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Download</button>
+                        </td>
+                    </tr>
+					<?php } ?>
                     <tfoot>
                       <tr>
-                        <th>Judul</th>
-                        <th>Nama Pembuat</th>
-                        <th>Tanggal Post</th>
-                        <th>Komentar</th>
+                        <th>Dokumen</th>
+                        <th>Pengupload</th>
+                        <th>Tanggal Diunggah</th>
+                        <th>Opsi</th>
                       </tr>
                     </tfoot>
                   </table>

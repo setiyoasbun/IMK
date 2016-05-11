@@ -123,13 +123,8 @@
               </ul>
             </li>
             <li>
-              <a href="kelola_dokumen.php">
-                <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
-              </a>
-            </li>
-            <li>
-              <a href="kelola_informasi.php">
-                <i class="fa fa-laptop"></i> <span>Kelola Informasi</span>
+              <a href="unduh_dokumen.php">
+                <i class="fa fa-book"></i> <span>Unduh Dokumen</span>
               </a>
             </li>
           </ul>

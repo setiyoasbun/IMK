@@ -4,24 +4,25 @@
 	if(!(isset($_SESSION['id']))){
 		header("location: ../penyewa2/view/penyewa/login.php");
 	}
-	$tipe = "UPT";
+	$idk=$_GET['id_keluhan'];
 	$id = $_SESSION['id'];
 	if(isset($_POST['submit'])){
 		
-		$judul = $_POST['title'];
-		$isi = $_POST['ask'];
+		$isi = $_POST['submit'];
 		
-		$res = "INSERT INTO thread (id_user, judul_thread, isi_thread, tipe_thread) values ('$id', '$judul', '$isi', '$tipe')";
+		//$tipe = "Fasor";
+		$res = "INSERT INTO jawaban (id_user, id_keluhan, isi_jawaban) values ('$id', '$idk', '$isi')";
 		//$sult = mysqli_query($conn, $res);
 		if(mysqli_query($conn, $res)){
-			echo "<script>alert('Berhasil memasukkan thread')</script>";
+			echo "<script>alert('Berhasil memasukkan comment')</script>";
+			$res1 = "UPDATE keluhan SET status_keluhan = 1 where id_keluhan = '$idk'";
+			$sult1 = mysqli_query($conn, $res1);
+			header("location:keluhan.php");
 		}
 		else{
-			echo "<script>alert('Gagal memasukkan thread')</script>";
+			echo "<script>alert('Gagal memasukkan comment')</script>";
 		}
 	}
-	$res2 = "SELECT * FROM thread where tipe_thread='$tipe' order by id_thread DESC";
-	$sult2 = mysqli_query($conn, $res2);
 	$na = "SELECT nama_user from user where id_user = '$id'";
 	$ma = mysqli_query($conn, $na);
 	$nama = mysqli_fetch_assoc($ma);
@@ -121,6 +122,7 @@
               <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
+          <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
@@ -134,12 +136,12 @@
                 <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
               </a>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i> <span>Forum</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
+                <li><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
                 <li><a href="forum_fasor.php"><i class="fa fa-circle-o"></i> UPT Fasor</a></li>
                 <li><a href="forum_upmb.php"><i class="fa fa-circle-o"></i> UPMB </a></li>
               </ul>
@@ -159,73 +161,48 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1 style="text-align: center">
-            Forum UPT Bahasa
+            <a href="keluhan.php" class="btn btn-primary pull-left"><b>Back To Keluhan</b></a>
+            Jawab Keluhan
           </h1>
         </section>
         <section class="content">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Forum</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-				<form method="POST" action="">
-					<div class="form-group">
-						  <label>Judul Thread</label>
-						  <input type="text" class="form-control" placeholder="Judul Thread..." name="title">
-					</div>
-					<div class="form-group">
-						  <label>Isi Thread</label>
-						  <textarea class="form-control" rows="3" placeholder="Ketik disini..." name="ask"></textarea>
-					</div>
-					<button class="btn btn-primary btn-block" type="submit" name="submit"><b>Post</b></button>
-				</form>
-                <br></br>  
-                  <table id="example1" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>Judul</th>
-                        <th>Nama Pembuat</th>
-                        <th>Tanggal Post</th>
-                        <th>Komentar</th>
-                      </tr>
-                    </thead>
+          <div class="box box-widget">
+                <div class='box-header with-border'>
+                  <div class='user-block'>
 					<?php
-						foreach($sult2 as $thread){
-							echo"<tr>";
-							echo"<td><a href=thread.php?id_forum=".$thread['id_thread'].">".$thread['judul_thread']."</a></td>";
-							$ids = $thread['id_user'];
-							$res3 = "SELECT nama_user FROM user where id_user = '$ids'";
-							$sult3 = mysqli_query($conn, $res3);
-							$go = mysqli_fetch_assoc($sult3);
-							echo"<td><a href=profile.php?id_user=$ids>".$go['nama_user']."</a></td>";
-							echo "<td>";
-							echo $thread['tgl_thread'];
-							echo "</td>";
-							$idx = $thread['id_thread'];
-							$res4 = "SELECT COUNT(*) from comment where id_thread = '$idx'";
-							$sult4 = mysqli_query($conn, $res4);
-							$go2 = mysqli_fetch_array($sult4);
-							echo "<td>";
-							echo $go2[0];
-							echo "</td>";
-						}
+						$res2 = "SELECT * from keluhan where id_keluhan = '$idk'";
+						$sult2 = mysqli_query($conn, $res2);
+						$go2 = mysqli_fetch_assoc($sult2);
+						$idu = $go2['id_user'];
+						$res3 = "SELECT nama_user from user where id_user = '$idu'";
+						$sult3 = mysqli_query($conn, $res3);
+						$go3 = mysqli_fetch_assoc($sult3);
 					?>
-                    
-                    <tfoot>
-                      <tr>
-                        <th>Judul</th>
-                        <th>Nama Pembuat</th>
-                        <th>Tanggal Post</th>
-                        <th>Komentar</th>
-                      </tr>
-                    </tfoot>
-                  </table>
+                    <img class='img-circle' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
+                    <span class='username'><?php echo"<a href=profile.php?id_user=$idu>".$go3['nama_user']."</a>"; ?></span>
+                    <span class='description'><?php echo $go2['tgl_keluhan']; ?></span>
+                  </div><!-- /.user-block -->
+                  </div><!-- /.box-header -->
+                <div class='box-body'>
+                  <!-- post text -->
+                  <p><?php echo $go2['isi_keluhan']; ?></p>
+
+                  <span class='pull-right text-muted'>Answered</span>
                 </div><!-- /.box-body -->
+                <div class='box-footer box-comments'>
+                  <div class='box-comment'>
+                    <!-- User image -->
+                    <img class='img-circle img-sm' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
+                    <div class='comment-text'>
+                      <span class="username">
+                        UPT Bahasa
+                        <span class='text-muted pull-right'>11-02-2015 11:00</span>
+                      </span><!-- /.username -->
+                      Akan segera diperbaiki
+                    </div><!-- /.comment-text -->
+                  </div><!-- /.box-comment -->
+                  </div>
               </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
         </section><!-- /.content -->
 
     </div><!-- ./wrapper -->
