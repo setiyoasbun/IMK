@@ -195,6 +195,7 @@
 							$res2 = "SELECT * from dokumen";
 							$sult2 = mysqli_query($conn, $res2);
 							foreach($sult2 as $dok){
+								$path = $dok['isi_dokumen'];
 							
 						?>
                     <tr>
@@ -209,7 +210,7 @@
 						?>
                         <td><?php echo"<a href=profile.php?id_user=$idp>".$go3['nama_user']."</a>"; ?></td>
 							<td><?php echo $dok['tgl_dokumen']; ?></td>
-                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Download</button>
+                        <td><?php echo "<a class='btn btn-primary' href='$path' download>Download</a>"; ?>
                         </td>
                     </tr>
 					<?php } ?>

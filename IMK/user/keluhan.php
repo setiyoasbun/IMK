@@ -1,9 +1,26 @@
 <?php
   session_start();
-  if(!(isset($_SESSION['id']))){
-    header("location: ../penyewa2/view/penyewa/login.php");
-  }
-  include_once("../conn.php");
+	include_once("../conn.php");
+	if(!(isset($_SESSION['id']))){
+		header("location: ../penyewa2/view/penyewa/login.php");
+	}
+	$id = $_SESSION['id'];
+	$na = "SELECT nama_user from user where id_user = '$id'";
+	$ma = mysqli_query($conn, $na);
+	$nama = mysqli_fetch_assoc($ma);
+	if(isset($_POST['submit'])){
+		$isi = $_POST['ask'];
+		$radio = $_POST['optionsRadios'];
+		$res = "INSERT INTO keluhan (id_user, isi_keluhan, tempat_keluhan) values ('$id', '$isi', '$radio')";
+		if(mysqli_query($conn, $res)){
+			echo "<script>alert('Berhasil memasukkan keluhan')</script>";
+		}
+		else{
+			echo "<script>alert('Gagal memasukkan keluhan')</script>";
+		}
+	}
+	$res2 = "SELECT * FROM keluhan where id_user = $id order by id_keluhan DESC";
+	$sult2 = mysqli_query($conn, $res2);
   
 ?>
 <!DOCTYPE html>
@@ -62,14 +79,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Nama UPT</span>
+                  <span class="hidden-xs"><?php echo $nama['nama_user']; ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
-                      Nama UPT
+                      <?php echo $nama['nama_user']; ?>
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -95,7 +112,7 @@
               <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Nama UPT</p>
+              <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
           <!-- /.search form -->
@@ -153,13 +170,13 @@
         <div class="form-group">
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="UPT Bahasa">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="UPT">
             UPT Bahasa
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="UPT Fasor">
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="Fasor">
             UPT Fasor
           </label>
         </div>
@@ -191,10 +208,20 @@
                         <th>Status</th>
                       </tr>
                     </thead>
+					<?php
+					foreach($sult2 as $keluh){
+						$idx = $keluh['id_keluhan'];
+					?>
                     <tr>
-                      <td><a href="lihat_keluhan.php">UPT Bahasa</a></td>
-                      <td>11-02-2014</td>
-                      <td>Belum Terbalas</td>
+                      <td><?php echo $keluh['tempat_keluhan'] ?></td>
+                      <td><?php echo $keluh['tgl_keluhan'] ?></td>
+                      <td><?php 
+								if($keluh['status_keluhan'] == 1){
+									echo "<a href=lihat_keluhan.php?id_keluhan=$idx class='btn btn-success'>Sudah Terjawab<br><b>Lihat Sekarang</b></a>";
+								}
+								else echo "Belum Terjawab";
+						}
+							?></td>
                     </tr>
                     <tfoot>
                       <th>Tujuan Keluhan</th>

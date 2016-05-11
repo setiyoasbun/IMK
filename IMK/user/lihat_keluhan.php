@@ -6,29 +6,9 @@
 	}
 	$idk=$_GET['id_keluhan'];
 	$id = $_SESSION['id'];
-	if(isset($_POST['submit'])){
-		
-		$isi = $_POST['submit'];
-		
-		//$tipe = "Fasor";
-		$res = "INSERT INTO jawaban (id_user, id_keluhan, isi_jawaban) values ('$id', '$idk', '$isi')";
-		//$sult = mysqli_query($conn, $res);
-		if(mysqli_query($conn, $res)){
-			echo "<script>alert('Berhasil memasukkan comment')</script>";
-			$res1 = "UPDATE keluhan SET status_keluhan = 1 where id_keluhan = '$idk'";
-			$sult1 = mysqli_query($conn, $res1);
-			header("location:keluhan.php");
-		}
-		else{
-			echo "<script>alert('Gagal memasukkan comment')</script>";
-		}
-	}
 	$na = "SELECT nama_user from user where id_user = '$id'";
 	$ma = mysqli_query($conn, $na);
 	$nama = mysqli_fetch_assoc($ma);
-	$hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
-	$tung = mysqli_query($conn, $hi);
-	$hitung = mysqli_fetch_array($tung);
 ?>
 <!DOCTYPE html>
 <html>
@@ -133,7 +113,7 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"></span>
               </a>
             </li>
             <li class="treeview">
@@ -177,6 +157,13 @@
 						$res3 = "SELECT nama_user from user where id_user = '$idu'";
 						$sult3 = mysqli_query($conn, $res3);
 						$go3 = mysqli_fetch_assoc($sult3);
+						$res4 = "SELECT * from jawaban where id_keluhan = '$idk'";
+						$sult4 = mysqli_query($conn, $res4);
+						$go4 = mysqli_fetch_assoc($sult4);
+						$idp = $go4['id_user'];
+						$res5 = "SELECT nama_user from user where id_user = '$idp'";
+						$sult5 = mysqli_query($conn, $res5);
+						$go5 = mysqli_fetch_assoc($sult5);
 					?>
                     <img class='img-circle' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
                     <span class='username'><?php echo"<a href=profile.php?id_user=$idu>".$go3['nama_user']."</a>"; ?></span>
@@ -195,10 +182,9 @@
                     <img class='img-circle img-sm' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
                     <div class='comment-text'>
                       <span class="username">
-                        UPT Bahasa
-                        <span class='text-muted pull-right'>11-02-2015 11:00</span>
+                        <?php echo $go5['nama_user']; ?>
                       </span><!-- /.username -->
-                      Akan segera diperbaiki
+                      <?php echo $go4['isi_jawaban']; ?>
                     </div><!-- /.comment-text -->
                   </div><!-- /.box-comment -->
                   </div>
