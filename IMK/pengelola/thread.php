@@ -5,8 +5,9 @@
 		header("location: ../penyewa2/view/penyewa/login.php");
 	}
 	$idt = $_GET['id_forum'];
+	$id = $_SESSION['id'];
 	if(isset($_POST['submit'])){
-		$id = $_SESSION['id'];
+		
 		$isi = $_POST['submit'];
 		
 		//$tipe = "Fasor";
@@ -24,6 +25,9 @@
 	$go = mysqli_fetch_assoc($sult2);
 	$res4 = "SELECT * FROM comment where id_thread = '$idt'";
 	$sult4 = mysqli_query($conn, $res4);
+	$na = "SELECT nama_user from user where id_user = '$id'";
+	$ma = mysqli_query($conn, $na);
+	$nama = mysqli_fetch_assoc($ma);
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,14 +85,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Nama UPT</span>
+                  <span class="hidden-xs"><?php echo $nama['nama_user']; ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
-                      Nama UPT
+                      <?php echo $nama['nama_user']; ?>
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -114,7 +118,7 @@
               <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Nama UPT</p>
+              <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -143,11 +147,6 @@
             <li>
               <a href="kelola_dokumen.php">
                 <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
-              </a>
-            </li>
-            <li>
-              <a href="kelola_informasi.php">
-                <i class="fa fa-laptop"></i> <span>Kelola Informasi</span>
               </a>
             </li>
           </ul>
