@@ -4,6 +4,13 @@
 	if(!(isset($_SESSION['id']))){
 		header("location: ../penyewa2/view/penyewa/login.php");
 	}
+	$id = $_SESSION['id'];
+	$na = "SELECT nama_user from user where id_user = '$id'";
+	$ma = mysqli_query($conn, $na);
+	$nama = mysqli_fetch_assoc($ma);
+	$hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
+	$tung = mysqli_query($conn, $hi);
+	$hitung = mysqli_fetch_array($tung);
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,14 +68,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Nama UPT</span>
+                  <span class="hidden-xs"><?php echo $nama['nama_user']; ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
-                      Nama UPT
+                      <?php echo $nama['nama_user']; ?>
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -94,7 +101,7 @@
               <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Nama UPT</p>
+              <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -107,7 +114,7 @@
             </li>
             <li class="active">
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right">4</span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
               </a>
             </li>
             <li class="treeview">
@@ -123,11 +130,6 @@
             <li>
               <a href="kelola_dokumen.php">
                 <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
-              </a>
-            </li>
-            <li>
-              <a href="kelola_informasi.php">
-                <i class="fa fa-laptop"></i> <span>Kelola Informasi</span>
               </a>
             </li>
           </ul>
@@ -156,8 +158,8 @@
                     <thead>
                       <tr>
                         <th>Nama</th>
-                        <th>ID Customer</th>
-                        <th>Tujuan Komentar</th>
+                        <th>ID User</th>
+                        <th>Tujuan Keluhan</th>
                         <th>Tanggal Keluhan</th>
                         <th>Status Keluhan</th>
                       </tr>
@@ -189,8 +191,8 @@
                     <tfoot>
                       <tr>
                         <th>Nama</th>
-                        <th>ID Customer</th>
-                        <th>Tujuan Komentar</th>
+                        <th>ID User</th>
+                        <th>Tujuan Keluhan</th>
                         <th>Tanggal Keluhan</th>
                         <th>Status Keluhan</th>
                       </tr>

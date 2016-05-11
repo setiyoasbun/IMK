@@ -4,9 +4,10 @@
   if(!(isset($_SESSION['id']))){
     header("location: ../penyewa2/view/penyewa/login.php");
   }
+  $id = $_SESSION['id'];
   $tipe = "UPMB";
   if(isset($_POST['submit'])){
-    $id = $_SESSION['id'];
+    
     $judul = $_POST['title'];
     $isi = $_POST['ask'];
     
@@ -21,6 +22,12 @@
   }
   $res2 = "SELECT * FROM thread where tipe_thread='$tipe' order by id_thread DESC";
   $sult2 = mysqli_query($conn, $res2);
+  $na = "SELECT nama_user from user where id_user = '$id'";
+  $ma = mysqli_query($conn, $na);
+  $nama = mysqli_fetch_assoc($ma);
+  $hi = "SELECT COUNT(*) FROM keluhan where status_keluhan = 0";
+  $tung = mysqli_query($conn, $hi);
+  $hitung = mysqli_fetch_array($tung);
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,14 +85,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Nama UPT</span>
+                  <span class="hidden-xs"><?php echo $nama['nama_user']; ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
-                      Nama UPT
+                      <?php echo $nama['nama_user']; ?>
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -111,7 +118,7 @@
               <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Nama UPT</p>
+              <p><?php echo $nama['nama_user']; ?></p>
             </div>
           </div>
           <!-- /.search form -->
@@ -125,7 +132,7 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right">4</span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
               </a>
             </li>
             <li class="active treeview">
@@ -141,11 +148,6 @@
             <li>
               <a href="kelola_dokumen.php">
                 <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
-              </a>
-            </li>
-            <li>
-              <a href="kelola_informasi.php">
-                <i class="fa fa-laptop"></i> <span>Kelola Informasi</span>
               </a>
             </li>
           </ul>
