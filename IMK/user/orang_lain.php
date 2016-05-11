@@ -144,9 +144,7 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-          <a href="keluhan.php" class="btn btn-primary pull-left"><b>Back</b></a>
-          </h1>
+          <a href="keluhan.php" class="btn btn-primary"><b>Back</b></a>
         </section>
         
         <section class="content">
