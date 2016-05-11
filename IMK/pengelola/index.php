@@ -142,11 +142,14 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1 style="text-align: center">
-            Nama UPT
+            Selamat Datang di Sistem Informasi One-Gate ITS
           </h1>
         </section>
         <section class="content">
-        <p>Deskripsi UPT</p>
+        <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"><img src="../dist/img/UPTBAHASA.jpg" class="img-responsive" style="height:400px;width: 1024px"></div>
+        </div>
         </section>
 
     </div><!-- ./wrapper -->
