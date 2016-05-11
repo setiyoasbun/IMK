@@ -78,13 +78,13 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
+                  <img src="../dist/img/UPTBAHASA.jpg" class="user-image" alt="User Image">
                   <span class="hidden-xs">Nama UPT</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
+                    <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
                     <p>
                       Nama UPT
                     </p>
@@ -109,21 +109,12 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
+              <img src="../dist/img/UPTBAHASA.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
               <p>Nama UPT</p>
             </div>
           </div>
-          <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -138,10 +129,15 @@
                 <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right">4</span>
               </a>
             </li>
-            <li class="active">
-              <a href="forum.php">
-                <i class="fa fa-edit"></i> <span>Forum</span>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-edit"></i> <span>Forum</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
+              <ul class="treeview-menu">
+                <li><a href="forum_upt.php"><i class="fa fa-circle-o"></i>UPT Bahasa</a></li>
+                <li><a href="forum_fasor.php"><i class="fa fa-circle-o"></i> UPT Fasor</a></li>
+                <li><a href="forum_upmb.php"><i class="fa fa-circle-o"></i> UPMB </a></li>
+              </ul>
             </li>
             <li>
               <a href="kelola_dokumen.php">
@@ -180,7 +176,7 @@
 						$sult3 = mysqli_query($conn, $res3);
 						$go3 = mysqli_fetch_assoc($sult3);
 					?>
-                    <img class='img-circle' src='dist/img/UPTBAHASA.jpg' alt='user image'>
+                    <img class='img-circle' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
                     <span class='username'><?php echo"<a href=profile.php?id_user=$idu>".$go3['nama_user']."</a>"; ?></span>
                     <span class='description'><?php echo $go2['tgl_keluhan']; ?></span>
                   </div><!-- /.user-block -->
@@ -193,7 +189,7 @@
                 </div><!-- /.box-body -->
                 <div class="box-footer">
                   <form action="" method="post">
-                    <img class="img-responsive img-circle img-sm" src="dist/img/UPTBAHASA.jpg" alt="alt text">
+                    <img class="img-responsive img-circle img-sm" src="../dist/img/UPTBAHASA.jpg" alt="alt text">
                     <!-- .img-push is used to add margin to elements next to floating images -->
                     <div class="img-push">
                       <input type="text" class="form-control input-sm" placeholder="Tekan Enter untuk Membalas Keluhan..." name="submit">
