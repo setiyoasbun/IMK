@@ -203,13 +203,20 @@
                     <tr>
 						<?php
 							$res2 = "SELECT * from dokumen";
-							$sult2 = mysqli_query($conn, $res);
+							$sult2 = mysqli_query($conn, $res2);
 							foreach($sult2 as $dok){
+							
 						?>
-                        <td><?php echo  ?></td>
-                        <td>UPT Bahasa</td>
-                        <td>12-02-2016</td>
-                        <td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus</button>
+                        <td><?php echo $dok['isi_dokumen']; ?></td>
+						<?php
+							$idp = $dok['id_user'];
+							$res3 = "SELECT nama_user from user where id_user = '$idp'";
+							$sult3 = mysqli_query($conn, $res3);
+							$go3 = mysqli_fetch_assoc($sult3);
+						?>
+                        <td><?php echo $go3['nama_user']; ?></td>
+							<td><?php echo $dok['tgl_dokumen'];} ?></td>
+                        <td><a class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus</a>
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
                           <div class="modal-dialog">
