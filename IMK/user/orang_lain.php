@@ -144,7 +144,7 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <a href="keluhan.php" class="btn btn-primary"><b>Back</b></a>
+          <a href="javascript:history.back()" class="btn btn-primary"><b>Back</b></a>
         </section>
         
         <section class="content">

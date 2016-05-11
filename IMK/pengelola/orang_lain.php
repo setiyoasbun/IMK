@@ -10,8 +10,8 @@
   $ma = mysqli_query($conn, $na);
   $nama = mysqli_fetch_assoc($ma);
   $na1 = "SELECT * from user where id_user = '$ido'";
-  $ma1 = mysqli_query($conn, $na);
-  $nama1 = mysqli_fetch_assoc($ma);
+  $ma1 = mysqli_query($conn, $na1);
+  $nama1 = mysqli_fetch_assoc($ma1);
   
 ?>
 <!DOCTYPE html>
@@ -144,6 +144,10 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+          <a href="javascript:history.back()" class="btn btn-primary"><b>Back</b></a>
+        </section>
+        
+        <section class="content">
           <div class="row">
             <div class="col-md-13">
               <!-- Profile Image -->
@@ -160,13 +164,13 @@
                     <li class="list-group-item">
                       <b>Email</b> <a class="pull-right"><?php echo $nama1['email_user']; ?></a>
                     </li>
-          <li class="list-group-item">
+                    <li class="list-group-item">
                       <b>Asal</b> <a class="pull-right"><?php echo $nama1['asal_user']; ?></a>
                     </li>           
                     <li class="list-group-item">
                       <b>Status</b> <a class="pull-right"><?php echo $nama1['status_user']; ?></a>
                     </li>
-          <li class="list-group-item">
+                    <li class="list-group-item">
                       <b>Nomor Identitas</b> <a class="pull-right"><?php echo $nama1['nomor_id']; ?></a>
                     </li>       
                   </ul>
