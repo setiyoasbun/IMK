@@ -4,11 +4,12 @@
   if(!(isset($_SESSION['id']))){
     header("location: ../penyewa2/view/penyewa/login.php");
   }
+  $tipe = "Fasor";
   if(isset($_POST['submit'])){
     $id = $_SESSION['id'];
     $judul = $_POST['title'];
     $isi = $_POST['ask'];
-    $tipe = "Fasor";
+    
     $res = "INSERT INTO thread (id_user, judul_thread, isi_thread, tipe_thread) values ('$id', '$judul', '$isi', '$tipe')";
     //$sult = mysqli_query($conn, $res);
     if(mysqli_query($conn, $res)){
@@ -18,7 +19,7 @@
       echo "<script>alert('Gagal memasukkan thread')</script>";
     }
   }
-  $res2 = "SELECT * FROM thread order by id_thread DESC";
+  $res2 = "SELECT * FROM thread where tipe_thread='$tipe' order by id_thread DESC";
   $sult2 = mysqli_query($conn, $res2);
 ?>
 <!DOCTYPE html>

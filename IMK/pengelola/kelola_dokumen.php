@@ -208,10 +208,11 @@
 							$res3 = "SELECT nama_user from user where id_user = '$idp'";
 							$sult3 = mysqli_query($conn, $res3);
 							$go3 = mysqli_fetch_assoc($sult3);
+							$ido = $dok['id_dokumen'];
 						?>
-                        <td><?php echo $go3['nama_user']; ?></td>
-							<td><?php echo $dok['tgl_dokumen'];} ?></td>
-                        <td><a class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus</a>
+                        <td><?php echo"<a href=profile.php?id_user=$idp>".$go3['nama_user']."</a>"; ?></td>
+							<td><?php echo $dok['tgl_dokumen']; ?></td>
+                        <td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus</button>
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
                           <div class="modal-dialog">
@@ -226,7 +227,8 @@
                                 <p>Apakah anda yakin untuk menghapus Dokumen ini?</p>
                               </div>
                               <div class="modal-footer">
-                                <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Yes</a>
+								<?php echo "<a href=delete_dokumen.php?id_dokumen=$ido class='btn btn-default'>Yes</a>"; ?>
+							<?php } ?>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                               </div>
                             </div>
