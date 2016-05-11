@@ -198,7 +198,7 @@
 					<?php
 						foreach($sult4 as $comm){
 							$idss = $comm['id_user'];
-							$res5 = "SELECT nama_user FROM user where id_user = '$ids'";
+							$res5 = "SELECT nama_user FROM user where id_user = '$idss'";
 							$sult5 = mysqli_query($conn, $res5);
 							$go3 = mysqli_fetch_assoc($sult5);
 					?>
