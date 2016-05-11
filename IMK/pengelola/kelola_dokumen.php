@@ -212,7 +212,7 @@
 							$go3 = mysqli_fetch_assoc($sult3);
 							$ido = $dok['id_dokumen'];
 						?>
-                        <td><?php echo"<a href=profile.php?id_user=$idp>".$go3['nama_user']."</a>"; ?></td>
+                        <td><?php echo"<a href=orang_lain.php?id_user=$idp>".$go3['nama_user']."</a>"; ?></td>
 							<td><?php echo $dok['tgl_dokumen']; ?></td>
                         <td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus</button>
                         <!-- Modal -->

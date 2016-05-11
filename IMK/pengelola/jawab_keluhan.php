@@ -179,7 +179,7 @@
 						$go3 = mysqli_fetch_assoc($sult3);
 					?>
                     <img class='img-circle' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
-                    <span class='username'><?php echo"<a href=profile.php?id_user=$idu>".$go3['nama_user']."</a>"; ?></span>
+                    <span class='username'><?php echo"<a href=orang_lain.php?id_user=$idu>".$go3['nama_user']."</a>"; ?></span>
                     <span class='description'><?php echo $go2['tgl_keluhan']; ?></span>
                   </div><!-- /.user-block -->
                   </div><!-- /.box-header -->

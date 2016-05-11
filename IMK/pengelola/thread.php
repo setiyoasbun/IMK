@@ -177,7 +177,7 @@
                 <div class='box-header with-border'>
                   <div class='user-block'>
                     <img class='img-circle' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
-                    <span class='username'><?php echo"<a href=profile.php?id_user=$ids>".$go2['nama_user']."</a>"; ?></span>
+                    <span class='username'><?php echo"<a href=orang_lain.php?id_user=$ids>".$go2['nama_user']."</a>"; ?></span>
                     <span class='description'><?php echo $go['tgl_thread']; ?></span>
                   </div><!-- /.user-block -->
                   </div><!-- /.box-header -->
@@ -205,7 +205,7 @@
                     <img class='img-circle img-sm' src='../dist/img/UPTBAHASA.jpg' alt='user image'>
                     <div class='comment-text'>
                       <span class="username">
-                        <?php echo"<a href=profile.php?id_user=$idss>".$go3['nama_user']."</a><br>"; ?>
+                        <?php echo"<a href=orang_lain.php?id_user=$idss>".$go3['nama_user']."</a><br>"; ?>
                         <span class='text-muted pull-right'><?php echo $comm['tgl_commenr']; ?></span>
                       </span><!-- /.username -->
                       <?php echo $comm['isi_comment']; ?>

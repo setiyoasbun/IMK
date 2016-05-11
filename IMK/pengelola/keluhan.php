@@ -175,8 +175,8 @@
 							$go2 = mysqli_fetch_assoc($sult2);
 					?>
                     <tr>
-                        <td><?php echo"<a href=profile.php?id_user=$ids>".$go2['nama_user']."</a>"; ?></td>
-                        <td><?php echo"<a href=profile.php?id_user=$ids>".$go2['nomor_id']."</a>"; ?></td>
+                        <td><?php echo"<a href=orang_lain.php?id_user=$ids>".$go2['nama_user']."</a>"; ?></td>
+                        <td><?php echo"<a href=orang_lain.php?id_user=$ids>".$go2['nomor_id']."</a>"; ?></td>
                         <td><?php echo $keluh['tempat_keluhan']; ?></td>
                         <td><?php echo $keluh['tgl_keluhan']; ?></td>
 						<td><?php 

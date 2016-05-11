@@ -5,9 +5,13 @@
   }
   include_once("../conn.php");
   $id = $_SESSION['id'];
+  $ido = $_GET['id_user'];
   $na = "SELECT nama_user from user where id_user = '$id'";
   $ma = mysqli_query($conn, $na);
   $nama = mysqli_fetch_assoc($ma);
+  $na1 = "SELECT * from user where id_user = '$ido'";
+  $ma1 = mysqli_query($conn, $na1);
+  $nama1 = mysqli_fetch_assoc($ma1);
   
 ?>
 <!DOCTYPE html>
@@ -146,24 +150,24 @@
               <div class="box box-primary">
                 <div class="box-body box-profile">
                   <img class="profile-user-img img-responsive img-circle" src="../dist/img/UPTBAHASA.jpg" alt="User profile picture">
-                  <h3 class="profile-username text-center">Aliya Rahma</h3>
-                  <p class="text-muted text-center">aliya.rahma13@gmail.com</p>
+                  <h3 class="profile-username text-center"><?php echo $nama1['nama_user']; ?></h3>
+                  <p class="text-muted text-center"><?php echo $nama1['email_user']; ?></p>
 
                   <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                      <b>Nama User</b> <a class="pull-right">Aliya Rahma Najihati</a>
+                      <b>Nama User</b> <a class="pull-right"><?php echo $nama1['nama_user']; ?></a>
                     </li>          
                     <li class="list-group-item">
-                      <b>Email</b> <a class="pull-right">aliya.rahma13@gmail.com</a>
+                      <b>Email</b> <a class="pull-right"><?php echo $nama1['email_user']; ?></a>
                     </li>
           <li class="list-group-item">
-                      <b>Asal</b> <a class="pull-right">Informatika ITS</a>
+                      <b>Asal</b> <a class="pull-right"><?php echo $nama1['asal_user']; ?></a>
                     </li>           
                     <li class="list-group-item">
-                      <b>Status</b> <a class="pull-right">Mahasiswa ITS</a>
+                      <b>Status</b> <a class="pull-right"><?php echo $nama1['status_user']; ?></a>
                     </li>
           <li class="list-group-item">
-                      <b>Nomor Identitas</b> <a class="pull-right">5113100011</a>
+                      <b>Nomor Identitas</b> <a class="pull-right"><?php echo $nama1['nomor_id']; ?></a>
                     </li>       
                   </ul>
                 </div><!-- /.box-body -->

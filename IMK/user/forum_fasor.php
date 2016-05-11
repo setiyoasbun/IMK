@@ -200,7 +200,7 @@
               $res3 = "SELECT nama_user FROM user where id_user = '$ids'";
               $sult3 = mysqli_query($conn, $res3);
               $go = mysqli_fetch_assoc($sult3);
-              echo"<td><a href=profile.php?id_user=$ids>".$go['nama_user']."</a></td>";
+              echo"<td><a href=orang_lain.php?id_user=$ids>".$go['nama_user']."</a></td>";
               echo "<td>";
               echo $thread['tgl_thread'];
               echo "</td>";
