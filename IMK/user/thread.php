@@ -137,7 +137,7 @@
             </li>
             <li>
               <a href="keluhan.php">
-                <i class="fa fa-envelope"></i> <span>Keluhan</span><span class="label label-primary pull-right"><?php echo $hitung[0]; ?></span>
+                <i class="fa fa-envelope"></i> <span>Keluhan</span>
               </a>
             </li>
             <li class="treeview">
@@ -151,8 +151,8 @@
               </ul>
             </li>
             <li>
-              <a href="kelola_dokumen.php">
-                <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
+              <a href="unduh_dokumen.php">
+                <i class="fa fa-book"></i> <span>Unduh Dokumen</span>
               </a>
             </li>
           </ul>

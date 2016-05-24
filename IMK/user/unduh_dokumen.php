@@ -160,8 +160,8 @@
               </ul>
             </li>
             <li class="active">
-              <a href="kelola_dokumen.php">
-                <i class="fa fa-book"></i> <span>Kelola Dokumen</span>
+              <a href="unduh_dokumen.php">
+                <i class="fa fa-book"></i> <span>Unduh Dokumen</span>
               </a>
             </li>
           </ul>
